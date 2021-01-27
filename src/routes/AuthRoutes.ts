@@ -5,7 +5,7 @@ import { auth } from '../middleware/AuthMiddleware'
 import validate from '../middleware/AuthValidator'
 
 // Controller
-import AuthController from "../controllers/Auth"
+import AuthController from "../controllers/AuthControllers"
 
 
 class AuthRoutes extends BaseRoutes {

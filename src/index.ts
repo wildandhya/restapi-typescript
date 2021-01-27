@@ -1,4 +1,4 @@
-import express, { Application, Request, Response } from 'express';
+import express, { Application, request, Request, Response } from 'express';
 import bodyParser from 'body-parser'
 import logger from 'morgan'
 import compression from 'compression'
@@ -7,8 +7,9 @@ import cors from 'cors'
 import { config as dotenv } from 'dotenv'
 
 // route
-import UserRoute from './routes/User'
-import AuthRoute from './routes/Auth'
+import UserRoute from './routes/UserRoutes'
+import AuthRoute from './routes/AuthRoutes'
+import TodoRoute from './routes/TodoRoutes'
 
 class App {
     public app: Application
@@ -29,9 +30,12 @@ class App {
     }
 
     protected routes(): void {
+        this.app.route("/").get((req: Request, res: Response) => {
+            res.send("Starting Point")
+        })
         this.app.use("/api/v1/users", UserRoute)
-
         this.app.use("/api/v1/auth", AuthRoute)
+        this.app.use("/api/v1/todos", TodoRoute)
 
 
     }

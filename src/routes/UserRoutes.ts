@@ -4,7 +4,7 @@ import BaseRoutes from './BaseRouter'
 import { auth } from '../middleware/AuthMiddleware'
 
 // Controller
-import UserController from "../controllers/User"
+import UserController from "../controllers/UserControllers"
 
 
 class UserRoutes extends BaseRoutes {

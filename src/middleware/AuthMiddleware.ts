@@ -7,14 +7,19 @@ export const auth = (req: Request, res: Response, next: NextFunction): any => {
     }
 
     let secretKey = process.env.SECRET_KEY || "secret"
-    // const token: string = req.headers.authorization?.split(" ")[1]
+    const token: string | undefined = req.headers.authorization?.split(" ")[1]
 
     try {
-        const credential: string | object = jwt.verify(token, secretKey)
-        if (credential) {
-            next()
+        if (token) {
+            const credential: string | object = jwt.verify(token, secretKey)
+            if (credential) {
+                req.app.locals.credential = credential
+                return next()
+            }
+            return res.send("token invalid")
         }
-        return res.send("token invalid")
+        throw new Error("Token Error")
+
     } catch (error) {
         return res.send(error)
     }
